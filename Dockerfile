@@ -2,9 +2,17 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (including WeasyPrint requirements for PDF generation)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
+    libpango-1.0-0 \
+    libpangoft2-1.0-0 \
+    libharfbuzz0b \
+    libpango1.0-dev \
+    libcairo2 \
+    libffi-dev \
+    libgdk-pixbuf2.0-0 \
+    shared-mime-info \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
