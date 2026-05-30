@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: sellora-backend
+    env: python
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: ALGORITHM
+        sync: false
+        value: "HS256"
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        sync: false
+        value: "1440"

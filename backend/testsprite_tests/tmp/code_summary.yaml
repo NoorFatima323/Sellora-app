@@ -1,0 +1,10 @@
+tech_stack:
+  - FastAPI
+  - Python
+  - Supabase
+  - Uvicorn
+  - Gemini
+features:
+  - Authentication API
+  - Analysis API
+  - Competitor Tracking API

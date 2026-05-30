@@ -1,0 +1,72 @@
+[
+  {
+    "projectId": "0684c838-82db-4e07-a7df-a97b304355f1",
+    "testId": "bf2967de-619a-46b1-ba8e-b6d7b236e9e9",
+    "userId": "a4f8f468-b0a1-706e-ce06-8b279538ca94",
+    "title": "TC001-post api auth login with valid credentials",
+    "description": "Test POST /api/auth/login endpoint with valid user credentials. IMPORTANT: The payload MUST be JSON containing 'email' equal to 'testqa@sellora.com' and 'password' equal to 'password123'. It should return 200 OK and a JWT token.",
+    "code": "import requests\n\ndef test_post_api_auth_login_with_valid_credentials():\n    base_url = \"http://localhost:8000\"\n    url = f\"{base_url}/api/auth/login\"\n    headers = {\n        \"Content-Type\": \"application/json\"\n    }\n    payload = {\n        \"email\": \"testqa@sellora.com\",\n        \"password\": \"password123\"\n    }\n    try:\n        response = requests.post(url, json=payload, headers=headers, timeout=30)\n        assert response.status_code == 200, f\"Expected status code 200, got {response.status_code}\"\n        json_response = response.json()\n        assert \"token\" in json_response or \"access_token\" in json_response, \"JWT token not found in response\"\n        token = json_response.get(\"token\") or json_response.get(\"access_token\")\n        assert isinstance(token, str) and len(token) > 0, \"JWT token is empty or not a string\"\n    except requests.RequestException as e:\n        assert False, f\"Request failed: {e}\"\n\ntest_post_api_auth_login_with_valid_credentials()",
+    "testStatus": "PASSED",
+    "testError": "",
+    "testType": "BACKEND",
+    "createFrom": "mcp",
+    "created": "2026-05-30T08:56:08.035Z",
+    "modified": "2026-05-30T08:56:14.322Z"
+  },
+  {
+    "projectId": "0684c838-82db-4e07-a7df-a97b304355f1",
+    "testId": "1ab8f2a3-711d-4293-bfae-e27caa0c9795",
+    "userId": "a4f8f468-b0a1-706e-ce06-8b279538ca94",
+    "title": "TC002-post api auth login with invalid credentials",
+    "description": "Test POST /api/auth/login endpoint with invalid JSON credentials (e.g. email 'testqa@sellora.com' and wrong password) to verify it returns a 400 Bad Request error.",
+    "code": "import requests\n\ndef test_post_api_auth_login_with_invalid_credentials():\n    base_url = \"http://localhost:8000\"\n    endpoint = \"/api/auth/login\"\n    url = base_url + endpoint\n    payload = {\n        \"email\": \"testqa@sellora.com\",\n        \"password\": \"wrongpassword\"\n    }\n    headers = {\n        \"Content-Type\": \"application/json\"\n    }\n\n    try:\n        response = requests.post(url, json=payload, headers=headers, timeout=30)\n    except requests.RequestException as e:\n        assert False, f\"Request failed: {e}\"\n\n    assert response.status_code == 400, f\"Expected status code 400, got {response.status_code}\"\n\ntest_post_api_auth_login_with_invalid_credentials()",
+    "testStatus": "PASSED",
+    "testError": "",
+    "testType": "BACKEND",
+    "createFrom": "mcp",
+    "created": "2026-05-30T08:56:08.048Z",
+    "modified": "2026-05-30T08:56:19.219Z"
+  },
+  {
+    "projectId": "0684c838-82db-4e07-a7df-a97b304355f1",
+    "testId": "888d9a34-654d-4e39-8fca-163d0c779158",
+    "userId": "a4f8f468-b0a1-706e-ce06-8b279538ca94",
+    "title": "TC003-post api analysis save with valid payload",
+    "description": "Test POST /api/analysis/save endpoint. First, login with 'testqa@sellora.com' and 'password123' to get the token. Then, use it as a Bearer token. Send a valid analysis payload (JSON). Confirm it returns a 200 status.",
+    "code": "import requests\n\nBASE_URL = \"http://localhost:8000\"\nLOGIN_URL = f\"{BASE_URL}/api/auth/login\"\nANALYSIS_POST_URL = f\"{BASE_URL}/api/analysis\"\nTIMEOUT = 30\n\ndef test_post_api_analysis_save_with_valid_payload():\n    # Step 1: Login to get token\n    login_payload = {\n        \"email\": \"testqa@sellora.com\",\n        \"password\": \"password123\"\n    }\n    try:\n        login_response = requests.post(LOGIN_URL, json=login_payload, timeout=TIMEOUT)\n        assert login_response.status_code == 200, f\"Login failed, expected 200 but got {login_response.status_code}\"\n        json_login = login_response.json()\n        assert \"access_token\" in json_login, \"access_token not found in login response\"\n        token = json_login[\"access_token\"]\n    except (requests.RequestException, AssertionError) as e:\n        raise Exception(f\"Login step failed: {str(e)}\")\n\n    # Step 2: Use token to post valid analysis payload\n    analysis_payload = {\n        \"title\": \"Q2 Market Analysis\",\n        \"description\": \"Comprehensive analysis of Q2 market trends\",\n        \"data\": {\n            \"regions\": [\"North America\", \"Europe\"],\n            \"metrics\": {\n                \"sales\": 1000000,\n                \"growth_rate\": 0.12\n            }\n        },\n        \"tags\": [\"market\", \"Q2\", \"sales\"]\n    }\n    headers = {\n        \"Authorization\": f\"Bearer {token}\",\n        \"Content-Type\": \"application/json\"\n    }\n\n    try:\n        analysis_response = requests.post(ANALYSIS_POST_URL, json=analysis_payload, headers=headers, timeout=TIMEOUT)\n        assert analysis_response.status_code == 200, f\"Expected 200, got {analysis_response.status_code}\"\n    except (requests.RequestException, AssertionError) as e:\n        raise Exception(f\"Analysis save step failed: {str(e)}\")\n\ntest_post_api_analysis_save_with_valid_payload()",
+    "testStatus": "FAILED",
+    "testError": "Traceback (most recent call last):\n  File \"<string>\", line 43, in test_post_api_analysis_save_with_valid_payload\nAssertionError: Expected 200, got 404\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/var/task/handler.py\", line 258, in run_with_retry\n    exec(code, exec_env)\n  File \"<string>\", line 47, in <module>\n  File \"<string>\", line 45, in test_post_api_analysis_save_with_valid_payload\nException: Analysis save step failed: Expected 200, got 404\n",
+    "testType": "BACKEND",
+    "createFrom": "mcp",
+    "created": "2026-05-30T08:56:08.054Z",
+    "modified": "2026-05-30T08:56:29.817Z"
+  },
+  {
+    "projectId": "0684c838-82db-4e07-a7df-a97b304355f1",
+    "testId": "3e650fb3-ad73-4455-914b-136d8698459a",
+    "userId": "a4f8f468-b0a1-706e-ce06-8b279538ca94",
+    "title": "TC004-get api analysis my reports",
+    "description": "Test GET /api/analysis/my-reports endpoint. First, login with 'testqa@sellora.com' and 'password123' to get the token. Then, use it as a Bearer token. Ensure it returns a 200 status with the stored analysis details.",
+    "code": "import requests\n\nBASE_URL = \"http://localhost:8000\"\nLOGIN_ENDPOINT = \"/api/auth/login\"\nMY_REPORTS_ENDPOINT = \"/api/analysis/my-reports\"\nTIMEOUT = 30\n\ndef test_get_api_analysis_my_reports():\n    login_payload = {\n        \"email\": \"testqa@sellora.com\",\n        \"password\": \"password123\"\n    }\n    try:\n        # Login to get JWT token\n        login_response = requests.post(\n            BASE_URL + LOGIN_ENDPOINT,\n            json=login_payload,\n            timeout=TIMEOUT\n        )\n        assert login_response.status_code == 200, f\"Login failed with status {login_response.status_code}\"\n        login_data = login_response.json()\n        token = login_data.get(\"access_token\") or login_data.get(\"token\")\n        assert token is not None, \"JWT token not found in login response\"\n\n        headers = {\n            \"Authorization\": f\"Bearer {token}\"\n        }\n\n        # Access my reports endpoint\n        reports_response = requests.get(\n            BASE_URL + MY_REPORTS_ENDPOINT,\n            headers=headers,\n            timeout=TIMEOUT\n        )\n        assert reports_response.status_code == 200, f\"My reports request failed with status {reports_response.status_code}\"\n        reports_data = reports_response.json()\n        # Assert the response JSON contains expected structure (list or dict)\n        assert isinstance(reports_data, (dict, list)), \"Expected JSON response to be list or dict\"\n\n    except requests.RequestException as e:\n        assert False, f\"Request failed: {e}\"\n\ntest_get_api_analysis_my_reports()\n",
+    "testStatus": "PASSED",
+    "testError": "",
+    "testType": "BACKEND",
+    "createFrom": "mcp",
+    "created": "2026-05-30T08:56:08.059Z",
+    "modified": "2026-05-30T08:56:34.541Z"
+  },
+  {
+    "projectId": "0684c838-82db-4e07-a7df-a97b304355f1",
+    "testId": "b57e7fd4-957d-4efc-9802-7dec5987d74a",
+    "userId": "a4f8f468-b0a1-706e-ce06-8b279538ca94",
+    "title": "TC005-get api competitor track",
+    "description": "Test GET /api/competitor/track endpoint using query parameters 'product_name' and 'base_price'. Verify it returns a 200 status with competitor tracking data.",
+    "code": "import requests\n\nBASE_URL = \"http://localhost:8000\"\n\ndef test_get_api_competitor_track():\n    url = f\"{BASE_URL}/api/competitor/track\"\n    params = {\n        \"product_name\": \"SampleProduct\",\n        \"base_price\": \"100\"\n    }\n    try:\n        response = requests.get(url, params=params, timeout=30)\n        response.raise_for_status()\n    except requests.RequestException as e:\n        assert False, f\"Request failed: {e}\"\n\n    assert response.status_code == 200, f\"Expected 200 OK but got {response.status_code}\"\n    data = response.json()\n    assert isinstance(data, dict) or isinstance(data, list), \"Response JSON should be dict or list\"\n    # Additional validation can be done here depending on expected schema\n\ntest_get_api_competitor_track()",
+    "testStatus": "PASSED",
+    "testError": "",
+    "testType": "BACKEND",
+    "createFrom": "mcp",
+    "created": "2026-05-30T08:56:08.064Z",
+    "modified": "2026-05-30T08:56:18.127Z"
+  }
+]

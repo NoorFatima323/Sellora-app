@@ -1,0 +1,18 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://127.0.0.1:5173",
+  "backendAuthType": "public",
+  "executionArgs": {
+    "projectName": "frontend",
+    "projectPath": "e:\\Sellora\\frontend",
+    "testIds": [],
+    "additionalInstruction": "",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-MaU1ilzvhL4IZEaPlhABQflBf4VLcbQqFUW7KPy8mNOZSC31PncRMignYg_iEa_3iCBf8ha-W4QAd2VLWpG6Z2pIoC_plrQgehiioHf3jgtKTyNMJprl8FfJick2rO1scp4"
+    }
+  },
+  "serverPort": 62134
+}

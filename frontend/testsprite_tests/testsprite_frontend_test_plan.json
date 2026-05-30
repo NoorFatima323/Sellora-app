@@ -1,0 +1,64 @@
+[
+  {
+    "id": "TC001",
+    "title": "User can log in successfully",
+    "description": "Verify that a user can log in with valid credentials.",
+    "category": "Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill the input field with type 'email' with the value 'testqa@sellora.com'"
+      },
+      {
+        "type": "action",
+        "description": "Fill the input field with type 'password' with the value 'password123'"
+      },
+      {
+        "type": "action",
+        "description": "Click the 'Sign in' or 'Sign In' or 'Login' button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that 'Dashboard' or 'Overview' is visible on the page, indicating a successful login"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "User can navigate to New Analysis",
+    "description": "Verify that after logging in, the user can navigate to the New Analysis or Analytics section.",
+    "category": "Navigation",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Fill the input field with type 'email' with 'testqa@sellora.com'"
+      },
+      {
+        "type": "action",
+        "description": "Fill the input field with type 'password' with 'password123'"
+      },
+      {
+        "type": "action",
+        "description": "Click the 'Sign in' or 'Sign In' or 'Login' button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the 'New Analysis' or 'Analytics' or similar item in the navigation menu"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that the user navigated to a page where a 'Product Name' or 'Analysis' header/input is visible"
+      }
+    ],
+    "priority": "Medium"
+  }
+]

@@ -1,0 +1,47 @@
+================================================================
+PROJECT: SELLORA — E-COMMERCE SELLER INTELLIGENCE SUITE
+VERSION: 3.0 FINAL (Design Complete — Build Phase)
+PREPARED FOR: AntiGravity Orchestration Framework
+DATE: 2026
+================================================================
+
+================================================================
+CRITICAL INSTRUCTION FOR ANTIGRAVITY — READ FIRST
+================================================================
+
+The frontend UI design for ALL 7 screens has been fully completed
+in Google Stitch. Your job is NOT to design anything.
+
+Your job is:
+  STEP 1 → Connect to Stitch MCP using the config below
+  STEP 2 → Extract all 7 screen designs and Design DNA from Stitch
+  STEP 3 → Convert those designs into production React.js code exactly
+  STEP 4 → Build the complete Python FastAPI backend
+  STEP 5 → Connect frontend to backend
+  STEP 6 → Set up Supabase database
+  STEP 7 → Integrate all MCP servers
+  STEP 8 → Run 16 AI agents using AntiGravity orchestration
+  STEP 9 → Test complete end-to-end flow
+  STEP 10 → Deploy
+
+DO NOT invent any UI. DO NOT change any colors, layouts, or fonts.
+ALWAYS follow the Stitch design pixel-perfectly.
+Build phase by phase. Complete and test each phase before starting next.
+
+
+================================================================
+SECTION 1: STITCH MCP CONNECTION (FRONTEND SOURCE)
+================================================================
+
+STITCH MCP CONFIGURATION (give this to AntiGravity as MCP server):
+
+{
+  "mcpServers": {
+    "stitch": {
+      "serverUrl": "https://stitch.googleapis.com/mcp",
+      "headers": {
+        "X-Goog-Api-Key": "[REDACTED_API_KEY]"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "TC001",
+    "title": "post api auth login with valid credentials",
+    "description": "Test POST /api/auth/login endpoint with valid user credentials. IMPORTANT: The payload MUST be JSON containing 'email' equal to 'testqa@sellora.com' and 'password' equal to 'password123'. It should return 200 OK and a JWT token."
+  },
+  {
+    "id": "TC002",
+    "title": "post api auth login with invalid credentials",
+    "description": "Test POST /api/auth/login endpoint with invalid JSON credentials (e.g. email 'testqa@sellora.com' and wrong password) to verify it returns a 400 Bad Request error."
+  },
+  {
+    "id": "TC003",
+    "title": "post api analysis save with valid payload",
+    "description": "Test POST /api/analysis/save endpoint. First, login with 'testqa@sellora.com' and 'password123' to get the token. Then, use it as a Bearer token. Send a valid analysis payload (JSON). Confirm it returns a 200 status."
+  },
+  {
+    "id": "TC004",
+    "title": "get api analysis my reports",
+    "description": "Test GET /api/analysis/my-reports endpoint. First, login with 'testqa@sellora.com' and 'password123' to get the token. Then, use it as a Bearer token. Ensure it returns a 200 status with the stored analysis details."
+  },
+  {
+    "id": "TC005",
+    "title": "get api competitor track",
+    "description": "Test GET /api/competitor/track endpoint using query parameters 'product_name' and 'base_price'. Verify it returns a 200 status with competitor tracking data."
+  }
+]
