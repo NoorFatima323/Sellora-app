@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpango1.0-dev \
     libcairo2 \
     libffi-dev \
-    libgdk-pixbuf2.0-0 \
     shared-mime-info \
     && rm -rf /var/lib/apt/lists/*
 
